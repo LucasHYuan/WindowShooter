@@ -1,0 +1,43 @@
+# Build files
+/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cbp
+*.ninja
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+
+# Object files
+*.o
+*.obj
+*.pdb
+*.ilk
+*.idb
+
+# Executables
+*.exe
+*.out
+*.app
+
+# SDL Libraries
+SDL2-2.30.8/lib/
+*.dll
+*.lib
+*.so
+*.dylib
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.suo
+*.user
+*.layout
+*.depend
+
+# OS specific files
+.DS_Store
+Thumbs.db
