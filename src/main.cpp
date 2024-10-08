@@ -65,19 +65,23 @@ int main(int argc, char* argv[]) {
 
 
         int mouseX, mouseY;
-        SDL_GetMouseState(&mouseX, &mouseY);
+        Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
         // Process input and get movement vector
         Vector2 movement = inputProcessor.processInput(state);
-
+        
         // Update and render
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
-
+        if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+            // std::cout << "Mouse X: " << mouseX << " Mouse Y: " << mouseY << std::endl;
+            player.shoot(mouseX, mouseY);
+        }
+        player.update(deltaTime);
         player.move(movement, deltaTime);
         player.render(renderer);
         player.renderArrow(renderer, mouseX, mouseY);
 
-        
+
         SDL_RenderPresent(renderer);
     }
 

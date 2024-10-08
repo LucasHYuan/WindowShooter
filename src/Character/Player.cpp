@@ -10,13 +10,15 @@ void Player::move(Vector2 movement, float deltaTime){
     // Update SDL_Rect position
     rect.x = static_cast<int>(x);
     rect.y = static_cast<int>(y);
-
     
 }
 
 void Player::render(SDL_Renderer* renderer){
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);  // Red player
     SDL_RenderFillRect(renderer, &rect);
+    for(auto &bullet : bullets){
+        bullet.render(renderer);
+    }
 }
 void Player::renderArrow(SDL_Renderer* renderer, int mouseX, int mouseY){
     float dx = mouseX - (x + width / 2);
@@ -40,4 +42,27 @@ void Player::renderArrow(SDL_Renderer* renderer, int mouseX, int mouseY){
     SDL_RenderDrawLine(renderer, p1.x, p1.y, p2.x, p2.y);
     SDL_RenderDrawLine(renderer, p1.x, p1.y, p3.x, p3.y);
     SDL_RenderDrawLine(renderer, p2.x, p2.y, p3.x, p3.y);
+}
+
+void Player::shoot(float mouseX, float mouseY) {
+    if (time_since_last_shot >= shoot_interval) {
+        float dx = mouseX - (x + width / 2);
+        float dy = mouseY - (y + height / 2);
+        float angle = atan2(dy, dx);
+        Bullet n_bullet = Bullet(x + width / 2, y + height / 2, angle);
+        bullets.push_back(n_bullet);
+        time_since_last_shot = 0;
+    }
+}
+
+void Player::update(float deltaTime){
+    time_since_last_shot += deltaTime;
+    for(auto &bullet : bullets){
+        bullet.update(deltaTime);
+    }
+
+    bullets.erase(
+        std::remove_if(bullets.begin(), bullets.end(),
+                       [](const Bullet& b) { return !b.isActive(); }),
+        bullets.end());
 }

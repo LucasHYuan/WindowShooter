@@ -8,7 +8,7 @@ protected:
     float width, height;
     float speed;
     SDL_Rect rect;      
-
+    SDL_Rect hitbox;
 public:
     Character(float xPos, float yPos, float w, float h, float spd);
     virtual ~Character() = default;

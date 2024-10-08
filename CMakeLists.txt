@@ -17,6 +17,7 @@ add_executable(WindowShooter
     src/Character/Character.cpp
     src/Character/Player.cpp
     src/Input/InputProcessor.cpp
+    src/Bullet/Bullet.cpp
 )
 
 target_link_libraries(WindowShooter "${SDL2_LIB_DIR}/SDL2.lib" "${SDL2_LIB_DIR}/SDL2main.lib")
